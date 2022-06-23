@@ -1,4 +1,5 @@
 <?php
 # Front-Controller
-echo "Front Controller" . "<br>";
-echo $_SERVER['REQUEST_URI'];
+include "bootstrap/init.php";
+
+var_dump($_ENV);
