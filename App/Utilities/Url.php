@@ -6,6 +6,11 @@ class Url
 {
     public static function current(): string
     {
-        return "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    }
+
+    public static function currentRout(): string
+    {
+        return strtok($_SERVER['REQUEST_URI'], '?');
     }
 }
