@@ -10,6 +10,7 @@ class Router
     public function __construct()
     {
         $this->routes = [
+            '/'             => '/home/index.php',
             '/colors/blue'  => '/colors/blue.php',
             '/colors/red'   => '/colors/red.php',
             '/colors/green' => '/colors/green.php'
@@ -22,7 +23,9 @@ class Router
         foreach ($this->routes as $rout => $view) {
             if ($rout == $currentRout) {
                 include BASE_PATH . "views/" . $view;
+                die;
             }
         }
+        include BASE_PATH . "views/errors/404.php";
     }
 }
