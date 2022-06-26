@@ -2,22 +2,29 @@
 
 use App\Core\Routing\Route;
 
-Route::get('/upload/hello', function () {
-    echo "hello";
+// Route::get('/a', function () {
+//     echo "hello | get | /a";
+// });
+Route::add(['get', 'post'], '/a', function () {
+    echo "hello | get | /a";
 });
-Route::post('/upload/hello');
-Route::put('/upload/hello', function () {
-    echo "hello";
+
+Route::post('/b', function () {
+    echo 'hello | post | b';
 });
-Route::delete('/upload/hello', function () {
-    echo "hello";
+
+Route::put('/c', function () {
+    echo "hello | put | c";
 });
-Route::options('/upload/hello', function () {
-    echo "hello";
+
+Route::delete('/d', function () {
+    echo "hello | delete | d";
 });
-Route::patch('/upload/hello', function () {
-    echo "hello";
+
+Route::options('/e', function () {
+    echo "hello | options | e";
 });
-Route::patchasdfasdf('/upload/hello', function () {
-    echo "hello";
+
+Route::patch('/f', function () {
+    echo "hello | patch | f";
 });

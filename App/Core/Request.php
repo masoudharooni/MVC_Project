@@ -14,7 +14,7 @@ class Request
     public function __construct()
     {
         $this->params = $_REQUEST;
-        $this->method = $_SERVER['REQUEST_METHOD'];
+        $this->method = strtolower($_SERVER['REQUEST_METHOD']);
         $this->agent = $_SERVER['HTTP_USER_AGENT'];
         $this->ip = $_SERVER['REMOTE_ADDR'];
         $this->route = strtok($_SERVER['REQUEST_URI'], '?');
@@ -22,9 +22,8 @@ class Request
 
     public function __call($methodName, $arguments)
     {
-        $nameWithoutGet = strtolower(explode('get', $methodName)[1]);
-        return (property_exists($this, $nameWithoutGet) ? $this->$nameWithoutGet :
-            throw new UndefinedMethodException("Method '{$nameWithoutGet}' is not exist!"));
+        return (property_exists($this, $methodName) ? $this->$methodName :
+            throw new UndefinedMethodException("Method '{$methodName}' is not exist!"));
     }
 
     public function input(string $key): ?string
