@@ -5,6 +5,7 @@ namespace App\Core\Routing;
 use App\Core\Request;
 use App\Exceptions\UndefinedClassException;
 use App\Exceptions\UndefinedMethodException;
+use App\Middlewares\FirefoxBlocker;
 use App\Utilities\View;
 
 class Router
@@ -13,11 +14,13 @@ class Router
     private Request $request;
     private ?array $currentRout;
     private const BASE_NAMESPACE = "App\\Controllers\\";
+    private array $globalMiddlewares = [FirefoxBlocker::class];
     public function __construct(Route $route, Request $request)
     {
         $this->routes = $route::routes();
         $this->request = $request;
         $this->currentRout = $this->findRoute($this->request);
+        $this->runMiddleware($this->globalMiddlewares);
         $this->runMiddleware($this->currentRout['middleware']);
     }
 
