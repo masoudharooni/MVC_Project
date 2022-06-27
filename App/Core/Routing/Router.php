@@ -18,6 +18,7 @@ class Router
         $this->routes = $route::routes();
         $this->request = $request;
         $this->currentRout = $this->findRoute($this->request);
+        $this->runMiddleware($this->currentRout['middleware']);
     }
 
 
@@ -43,6 +44,16 @@ class Router
         }
         $this->dispatch($this->currentRout);
     }
+
+
+    private function runMiddleware(array $middlewares)
+    {
+        foreach ($middlewares as $middlewareClassName) {
+            $middlewareObj = new $middlewareClassName;
+            $middlewareObj->handle();
+        }
+    }
+
 
     private function dispatch($route)
     {
