@@ -5,7 +5,7 @@ namespace App\Middlewares;
 use App\Middlewares\Contracts\MiddlewareInterface;
 use hisorange\BrowserDetect\Parser as Browser;
 
-class InternetExplorBlocker implements MiddlewareInterface
+class InternetExplorerBlocker implements MiddlewareInterface
 {
     public function handle()
     {
