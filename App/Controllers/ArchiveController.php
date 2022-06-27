@@ -8,7 +8,15 @@ class ArchiveController
 {
     public static function index()
     {
-        echo "Hello From '" . self::class . "'";
-        View::include('articles.index');
+        View::include('archives.index');
+    }
+    public function articles()
+    {
+        View::include('archives.articles');
+    }
+
+    public function products()
+    {
+        View::include('archives.products');
     }
 }

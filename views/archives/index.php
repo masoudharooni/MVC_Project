@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <h1 style="font-size: 50px;color:red">Articles</h1>
+    <h1 style="font-size: 50px;color:red">Archive page is in here . . .</h1>
 </body>
 
 </html>
