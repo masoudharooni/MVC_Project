@@ -29,7 +29,7 @@ class Router
     private function findRoute(Request $request): ?array
     {
         foreach ($this->routes as $route) {
-            if (in_array($request->method(), $route['methods']) && $request->route() == $route['uri']) {
+            if (in_array($request->method(), $route['methods']) && $this->isRegexMatched($route)) {
                 return $route;
             }
         }
@@ -88,6 +88,18 @@ class Router
         }
     }
 
+    private function isRegexMatched(array $route): bool
+    {
+        global $request;
+        if (preg_match($route['uri'], $this->request->uri(), $matches)) {
+            foreach ($matches as $key => $value)
+                if (!is_int($key))
+                    $request->addRouteParam($key, $value);
+            return true;
+        }
+        return false;
+    }
+
     private function dispatch405()
     {
         header($_SERVER["SERVER_PROTOCOL"] . " 405 Method Not Allowed", true, 405);
@@ -104,7 +116,7 @@ class Router
     private function invalidRequestMethod(Request $request): bool
     {
         foreach ($this->routes as $route)
-            if (!in_array($request->method(), $route['methods']) && $request->route() == $route['uri'])
+            if (!in_array($request->method(), $route['methods']) && $this->isRegexMatched($route))
                 return true;
         return false;
     }

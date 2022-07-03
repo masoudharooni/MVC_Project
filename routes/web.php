@@ -6,6 +6,8 @@ use App\Middlewares\InternetExplorBlocker;
 
 Route::get('/', 'HomeController@index');
 
+Route::get('/posts/{post_id}');
+
 Route::get('/archive', 'ArchiveController@index');
 Route::get('/archive/', 'ArchiveController@index');
 

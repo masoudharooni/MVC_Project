@@ -18,7 +18,8 @@ class Route
     public static function add(array|string $methods, string $uri, $action = null, array $middleware = []): void
     {
         $methods = is_array($methods) ? $methods : [$methods];
-        self::$routes[] = ['methods' => $methods, 'uri' => $uri, 'action' => $action, 'middleware' => $middleware];
+        $uriRegex = '/^' . str_replace(['/', '{', '}'], ['\/', '(?<', '>[\w%-]*)'], $uri) . '$/';
+        self::$routes[] = ['methods' => $methods, 'uri' => $uriRegex, 'action' => $action, 'middleware' => $middleware];
     }
 
     /**
@@ -30,9 +31,9 @@ class Route
 
     public static function __callStatic(string $method, array $arguments): void
     {
-        [$uri, $action, $middleware] = [$arguments[0], $arguments[1], $arguments[2] ?? []];
+        [$uri, $action, $middleware] = [$arguments[0], isset($arguments[1]) ? $arguments[1] : null, $arguments[2] ?? []];
         if (in_array($method, self::$HTTP_VERBS))
-            self::add($method, $uri, isset($action) ? $action : null, $middleware);
+            self::add($method, $uri, $action, $middleware);
     }
 
 
