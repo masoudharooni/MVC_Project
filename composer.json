@@ -13,6 +13,7 @@
     ],
     "require": {
         "vlucas/phpdotenv": "^5.4",
-        "hisorange/browser-detect": "^4.5"
+        "hisorange/browser-detect": "^4.5",
+        "catfan/medoo": "^2.1"
     }
 }
