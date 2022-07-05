@@ -8,6 +8,9 @@ use PDO;
 
 abstract class MysqlBaseModel extends BaseModel
 {
+    /**
+     * Medoo connection
+     */
     public function __construct()
     {
         try {
@@ -94,5 +97,35 @@ abstract class MysqlBaseModel extends BaseModel
     {
         $result = $this->connection->delete($this->table, $where);
         return $result->rowCount();
+    }
+
+    # Aggregation methods
+    /**
+     * it is used, to count number of rows of the database with a condition
+     *
+     * @param array $where
+     * @return integer
+     */
+    public function count(array $where): int
+    {
+        return $this->connection->count($this->table, $where);
+    }
+    /**
+     * it is used, to sure that a row is there or not
+     *
+     * @param array $where
+     * @return boolean
+     */
+    public function exist(array $where): bool
+    {
+        return $this->connection->has($this->table, $where);
+    }
+    public function avg(string $column, array $where = []): int
+    {
+        return $this->connection->avg($this->table, $column, $where);
+    }
+    public function sum(string $column, array $where = []): int
+    {
+        return $this->connection->sum($this->table, $column, $where);
     }
 }
