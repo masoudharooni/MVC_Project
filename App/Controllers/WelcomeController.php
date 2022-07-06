@@ -2,10 +2,10 @@
 
 namespace App\Controllers;
 
-class HomeController
+class WelcomeController
 {
     public function index()
     {
-        echo "Welcome Home!";
+        echo "Welcome!";
     }
 }
